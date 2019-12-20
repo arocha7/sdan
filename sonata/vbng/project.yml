@@ -1,0 +1,57 @@
+version: '0.1'
+package:
+  name: 'alb-sdan-vbng'
+  vendor: 'eu.alticelabs'
+  version: '0.1'
+  maintainer: sdan@alticelabs.com
+  description: Software-Defined Access Networks - vBNG 
+descriptor_extension: yml
+files:
+- path: nsd/vbng.yml
+  type: application/vnd.alticelabs.nsd
+  tags:
+  - alticelabs
+  - sdn
+  - bng
+- path: vnfd/processing-node.yml
+  type: application/vnd.alticelabs.vnfd
+  tags:
+  - alticelabs
+  - sdn
+  - bng
+- path: vnfd/radius-addr-mgmt.yml
+  type: application/vnd.alticelabs.vnfd
+  tags:
+  - alticelabs
+  - sdn
+  - bng
+- path: vnfd/radius-addr-mgmt-oper.yml
+  type: application/vnd.alticelabs.vnfd
+  tags:
+  - alticelabs
+  - sdn
+  - bng
+- path: vnfd/radius-client.yml
+  type: application/vnd.alticelabs.vnfd
+  tags:
+  - alticelabs
+  - sdn
+  - bng
+- path: vnfd/radius-server.yml
+  type: application/vnd.alticelabs.vnfd
+  tags:
+  - alticelabs
+  - sdn
+  - bng
+- path: vnfd/satellite-node.yml
+  type: application/vnd.alticelabs.vnfd
+  tags:
+  - alticelabs
+  - sdn
+  - bng
+- path: vnfd/taskscheduler-node.yml
+  type: application/vnd.alticelabs.vnfd
+  tags:
+  - alticelabs
+  - sdn
+  - bng

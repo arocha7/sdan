@@ -1,0 +1,107 @@
+#  Copyright (c) 2020 Altice Labs
+# ALL RIGHTS RESERVED.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+---
+descriptor_schema: https://raw.githubusercontent.com/sonata-nfv/tng-schema/master/service-descriptor/nsd-schema.yml
+vendor: com.alticelabs
+name: alb-sdan-vbng
+version: '0.1'
+author: vbng@alticelabs.com
+description: 'a containerized BNG Network Service'
+
+network_functions:
+- vnf_id: cnf1
+  vnf_vendor: com.alticelabs
+  vnf_name: processing-node
+  vnf_version: '0.1'
+- vnf_id: cnf2
+  vnf_vendor: com.alticelabs
+  vnf_name: radius-addr-mgmt
+  vnf_version: '0.1'
+- vnf_id: cnf3
+  vnf_vendor: com.alticelabs
+  vnf_name: radius-am-oper
+  vnf_version: '0.1'
+- vnf_id: cnf4
+  vnf_vendor: com.alticelabs
+  vnf_name: radius-client
+  vnf_version: '0.1'
+- vnf_id: cnf5
+  vnf_vendor: com.alticelabs
+  vnf_name: radius-server
+  vnf_version: '0.1'
+- vnf_id: cnf6
+  vnf_vendor: com.alticelabs
+  vnf_name: satellite-node
+  vnf_version: '0.1'
+- vnf_id: cnf7
+  vnf_vendor: com.alticelabs
+  vnf_name: taskscheduler-node
+  vnf_version: '0.1'
+ 
+ 
+# external CPs of the NS. only need to define what needs to be accessible from the outside
+connection_points:
+- id: cp-vbng
+  interface: ipv4
+  type: external
+
+# connects the external CPs of the NS with the CPs of the VNFs
+virtual_links:
+- id: vl-oms
+  connectivity_type: E-LAN
+  connection_points_reference:
+    - cp-vbng
+    - "cnf1:cp-oms"
+- id: vl-radius-addr-mgmt
+  connectivity_type: E-LAN
+  connection_points_reference:
+    - cp-vbng
+    - "cnf2:radius-addr-mgmt"
+- id: vl-radius-am-oper
+  connectivity_type: E-LAN
+  connection_points_reference:
+    - cp-vbng
+    - "cnf3:cp-radius-am-oper"
+- id: vl-radius-client
+  connectivity_type: E-LAN
+  connection_points_reference:
+    - cp-vbng
+    - "cnf4:cp-radius-client"
+- id: vl-radius-server
+  connectivity_type: E-LAN
+  connection_points_reference:
+    - cp-vbng
+    - "cnf5:cp-radius-server"
+- id: vl-satellite-node
+  connectivity_type: E-LAN
+  connection_points_reference:
+    - cp-vbng
+    - "cnf6:cp-satellite-node"
+- id: vl-taskscheduler-node
+  connectivity_type: E-LAN
+  connection_points_reference:
+    - cp-vbng
+    - "cnf7:cp-tasksched-node"
+ 
+ # Assign a SSM for reconfiguration after an IDS intrusion alarm
+service_specific_managers:
+ - id: "alb-sdan-vbng-ssm"
+   description: "SSM to trigger reconfiguration via the NS's FSM"
+   image: "172.31.8.178:5000/radius-server:latest"
+   options:
+     - key: "type"
+       value: "configure"
