@@ -1,0 +1,22 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sdan-elasticsearch-svc
+  labels:
+    prj: sdan
+    cnf: sdan-elasticsearch
+spec:
+  type: LoadBalancer
+  selector:
+    cnf: sdan-elasticsearch
+  ports:
+  - name: e-9200
+    protocol: TCP
+    port: 9200
+    targetPort: 9200
+  - name: e-9300
+    protocol: TCP
+    port: 9300
+    targetPort: 9300
+

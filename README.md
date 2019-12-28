@@ -13,7 +13,8 @@ The repo also contains a ```Jenkinsfile``` per component to be used as a Declara
 Here is the Repository directory structure:
 
 ```
-\+ mano + sonata + 
+\
+ + mano + sonata + vbng
  |      |        |
  |      |        + elk
  |      |        |
@@ -52,12 +53,15 @@ This section contains detailed info about individual components on a CICD base.
 
 ### Fluentd
 
-
+<<< ToBeDone >>>
 
 ## MANO
 
 This section contains detailed info about individual components on a NFV base.
 
+<<< ToBeDone >>>
+
 ### SONATA
 
+<<< ToBeDone >>>
 

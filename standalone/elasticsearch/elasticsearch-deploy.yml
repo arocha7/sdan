@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sdan-elasticsearch-deploy
+  labels:
+    prj: sdan
+    cnf: sdan-elasticsearch
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      prj: sdan
+      cnf: sdan-elasticsearch
+  template:
+    metadata:
+      labels:
+        prj: sdan
+        cnf: sdan-elasticsearch
+    spec:
+      volumes:
+      - name: elasticsearch-config
+        configMap:
+          name: elasticsearch-static-configfile
+      containers:
+      - name: elasticsearch
+        image: elasticsearch:7.5.0
+        imagePullPolicy: IfNotPresent
+        resources: 
+          limits: 
+            memory: 4Gi
+        envFrom:
+        - configMapRef:
+            name: sdan-elasticsearch-cm
+        env:
+        - name: ES_JAVA_OPTS
+          value: "-Xms1g -Xmx1g"
+        - name: bootstrap.memory_lock
+          value: "true"
+        - name: discovery.type
+          value: single-node
+        ports:
+        - containerPort: 9200 # for REST API
+          protocol: TCP
+        - containerPort: 9300 # for Nodes communication
+          protocol: TCP
+      dnsPolicy: ClusterFirst # service.namespace.svc.cluster.local
+      #hostNetwork: false
+      #hostname: elasticsearch
+
