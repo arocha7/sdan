@@ -1,5 +1,5 @@
 # Intro
-The Docker Compose definition file does the deployment of Graylog with Elasticsearch and MongoDb
+A Docker Compose to deploy Graylog with Elasticsearch, MongoDB and Grafana.
 
 # Configuration 
 
@@ -45,4 +45,10 @@ The list of openned ports are:
 * SYSLOG
 
 ```nc -zvuw1 10.112.106.236 514```
+
+NOTE: during deployment phase, you can start TCPDUMP on Grafana host to verify the arrival of SYSLOG and GELF messages - ex: 
+
+```sudo tcpdump -i any -v 'port 12201'```
+
+```sudo tcpdump -i any -v 'port 514'```
 
