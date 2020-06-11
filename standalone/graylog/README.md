@@ -40,7 +40,7 @@ The list of openned ports are:
 
 * GELF
 
-```echo -n '{ "version": "1.1", "host": "example.org", "short_message": "A short message ", "level": 5, "_some_info": "foo" }' | nc -vuw1 YOUR.IP.ADD.RESS 12201```
+```echo -n '{ "version": "1.1", "host": "example.org", "short_message": "A short message ", "level": 5, "_some_info": "foo" }' | nc -vuw1 YOUR.IP.ADDR.ESS 12201```
 
 * SYSLOG
 

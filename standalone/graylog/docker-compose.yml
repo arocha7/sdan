@@ -7,10 +7,10 @@ services:
       - graynet
     volumes:
       - mongo_data:/data/db
-#    logging:
-#      driver: "fluentd"
-#      options:
-#        fluentd-address: "172.31.8.120:24224"
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "udp://localhost:12201"
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.8.9
@@ -23,21 +23,21 @@ services:
       memlock:
         soft: -1
         hard: -1
-    deploy:
-      resources:
-        limits:
-          memory: 1g
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 1g
     networks:
       - graynet
     volumes:
       - es_data:/usr/share/elasticsearch/data
-#    logging:
-#      driver: "fluentd"
-#      options:
-#        fluentd-address: "172.31.8.120:24224"
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "udp://localhost:12201"
 
   graylog:
-    image: graylog/graylog:3.3
+    image: graylog/graylog:3.3.1
     environment:
       # CHANGE ME (must be at least 16 characters)!
       - GRAYLOG_PASSWORD_SECRET=somepasswordpepper
@@ -62,10 +62,10 @@ services:
       - 12201:12201/udp
     volumes:
       - graylog_journal:/usr/share/graylog/data/journal
-#    logging:
-#      driver: "fluentd"
-#      options:
-#        fluentd-address: "172.31.8.120:24224"
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "udp://localhost:12201"
 
   grafana:
     image: grafana/grafana
@@ -77,10 +77,10 @@ services:
       - graynet
     depends_on:
       - graylog
-#    logging:
-#      driver: "fluentd"
-#      options:
-#        fluentd-address: "172.31.8.120:24224"
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "udp://localhost:12201"
 
 networks:
   graynet:
