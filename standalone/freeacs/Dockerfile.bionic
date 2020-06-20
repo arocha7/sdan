@@ -1,0 +1,7 @@
+FROM centos:centos7.8.2003
+MAINTAINER alberto-m-rocha@alticelabs.com
+RUN yum update && \
+    wget https://raw.githubusercontent.com/freeacs/freeacs/master/scripts/install.sh -v -O install.sh && \
+    chmod +x install.sh && \
+    ./install.sh;
+CMD tail -f /dev/null
