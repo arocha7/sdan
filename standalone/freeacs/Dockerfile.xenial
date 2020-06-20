@@ -1,7 +1,10 @@
-FROM centos:centos7.8.2003
+FROM ubuntu:xenial
 MAINTAINER alberto-m-rocha@alticelabs.com
-RUN yum update && \
+RUN apt update -y && \
+    apt install -y lsb-core && \
+    apt install -y wget && \
     wget https://raw.githubusercontent.com/freeacs/freeacs/master/scripts/install.sh -v -O install.sh && \
     chmod +x install.sh && \
-    ./install.sh;
+    yes | ./install.sh;
+EXPOSE 80
 CMD tail -f /dev/null
